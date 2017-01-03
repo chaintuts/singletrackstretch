@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="0.00 km"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/distanceTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="monospace"
+        android:textSize="100sp"
+        android:textIsSelectable="true"
+        tools:textStyle="bold"
+        android:textAlignment="center"
+        tools:textColor="@android:color/black" />
+
+    <Button
+        android:text="Start"
+        android:layout_height="wrap_content"
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:onClick="startTracking"/>
+
+    <Button
+        android:text="Stop"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopButton"
+        android:layout_width="match_parent"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:onClick="stopTracking"/>
+
+    <Button
+        android:text="Reset"
+        android:layout_height="wrap_content"
+        android:id="@+id/resetButton"
+        android:layout_width="match_parent"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:onClick="resetTracking" />
+
+</LinearLayout>
