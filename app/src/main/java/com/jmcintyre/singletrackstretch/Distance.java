@@ -55,9 +55,13 @@ public class Distance {
             }
             catch (NullPointerException e)
             {
-                /* If lastLocation isn't yet set, wait until the next update
+                /* If lastLocation isn't yet set, try again to retrieve the last known location
                 *
                 */
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                {
+                    lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
             }
         }
 
