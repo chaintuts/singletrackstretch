@@ -102,6 +102,8 @@ public class Distance {
         {
             locationManager.removeUpdates(locationListener);
         }
+
+        lastLocation = null;
     }
 
     /* This getter retrieves the current distanceKm traveled formatted as a string
@@ -112,5 +114,22 @@ public class Distance {
     public String getDistanceString()
     {
         return String.format("%.2f", distanceKm) + DISTANCE_STRING_UNITS;
+    }
+
+    /* This getter retrieves the current distanceKm traveled formatted as a string
+    *
+    * Return: distanceString
+    *
+    */
+    public String getCurrentLocationString()
+    {
+        if (! (lastLocation == null))
+        {
+            return Double.toString(lastLocation.getLatitude()) + ", " + Double.toString(lastLocation.getLongitude());
+        }
+        else
+        {
+            return "No location data available";
+        }
     }
 }

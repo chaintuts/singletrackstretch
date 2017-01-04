@@ -30,6 +30,7 @@ public class SingletrackStretchActivity extends AppCompatActivity
     private Distance distance;
     private Handler handler;
     private TextView distanceTextView;
+    private TextView currentLocationTextView;
 
     /* This function builds the GUI when the app loads
     * It sets the view to the distance activity
@@ -51,12 +52,14 @@ public class SingletrackStretchActivity extends AppCompatActivity
         */
         handler = new Handler();
         distanceTextView = (TextView) findViewById(R.id.distanceTextView);
+        currentLocationTextView = (TextView) findViewById(R.id.currentLocationTextView);
         final Runnable refreshDistance = new Runnable()
         {
             @Override
             public void run()
             {
                 distanceTextView.setText(distance.getDistanceString());
+                currentLocationTextView.setText(distance.getCurrentLocationString());
                 handler.postDelayed(this, TEXTVIEW_REFRESH_RATE);
             }
         };
