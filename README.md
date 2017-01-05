@@ -18,10 +18,7 @@ ________________
 * development for bugfixes and new features
 
 ### Building
-* make build
-Build the application
-* make clean
-Clean the build directory
+* Build with Android Studio
 
 ### Features
 * Track the distance traveled on mountain bike rides or performing other outdoor activities
