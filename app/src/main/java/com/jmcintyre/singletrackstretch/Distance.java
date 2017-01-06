@@ -20,12 +20,20 @@ import android.support.v4.content.ContextCompat;
 */
 public class Distance {
 
-    /* This block defines constants for distance tracking
+    /* This block defines public constants for distance tracking
+    *
+    */
+    public static final int UNITS_KM = 0;
+    public static final int UNITS_MI = 1;
+
+    /* This block defines private constants for distance tracking
     *
     */
     private static final long MIN_TIME_CHANGE_MS = 5000;
     private static final long MIN_DISTANCE_CHANGE_M = 0;
-    private static final String DISTANCE_STRING_UNITS = " km";
+    private static final String DISTANCE_STRING_UNITS_KM = " km";
+    private static final String DISTANCE_STRING_UNITS_MI = " mi";
+    private static final float KM_TO_MI = 0.621371f;
 
     /* This block defines variables for distance tracking
     *
@@ -115,9 +123,16 @@ public class Distance {
     * Return: distanceString
     *
     */
-    public String getDistanceString()
+    public String getDistanceString(int units)
     {
-        return String.format("%.2f", distanceKm) + DISTANCE_STRING_UNITS;
+        if (units == UNITS_KM)
+        {
+            return String.format("%.2f", distanceKm) + DISTANCE_STRING_UNITS_KM;
+        }
+        else
+        {
+            return String.format("%.2f", distanceKm * KM_TO_MI) + DISTANCE_STRING_UNITS_MI;
+        }
     }
 
     /* This getter retrieves the current distanceKm traveled formatted as a string

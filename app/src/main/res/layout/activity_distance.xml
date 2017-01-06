@@ -16,11 +16,36 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="monospace"
-        android:textSize="100sp"
+        android:textSize="75sp"
         android:textIsSelectable="true"
         tools:textStyle="bold"
         android:textAlignment="center"
         tools:textColor="@android:color/black" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/unitsRadioGroup">
+
+        <RadioButton
+            android:text="kilometers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/kmRadioButton"
+            android:fontFamily="monospace"
+            android:textStyle="normal|bold"
+            android:checked="true"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="miles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/miRadioButton"
+            android:fontFamily="monospace"
+            android:textStyle="normal|bold"
+            android:layout_weight="1" />
+    </RadioGroup>
 
     <Button
         android:text="Start"

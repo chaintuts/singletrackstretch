@@ -9,6 +9,7 @@ package com.jmcintyre.singletrackstretch;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
@@ -31,6 +32,8 @@ public class SingletrackStretchActivity extends AppCompatActivity
     private Handler handler;
     private TextView distanceTextView;
     private TextView currentLocationTextView;
+    private RadioButton kmRadioButton;
+    private RadioButton miRadioButton;
 
     /* This function builds the GUI when the app loads
     * It sets the view to the distance activity
@@ -53,12 +56,23 @@ public class SingletrackStretchActivity extends AppCompatActivity
         handler = new Handler();
         distanceTextView = (TextView) findViewById(R.id.distanceTextView);
         currentLocationTextView = (TextView) findViewById(R.id.currentLocationTextView);
+        kmRadioButton = (RadioButton) findViewById(R.id.kmRadioButton);
+        miRadioButton = (RadioButton) findViewById(R.id.miRadioButton);
         final Runnable refreshDistance = new Runnable()
         {
             @Override
             public void run()
             {
-                distanceTextView.setText(distance.getDistanceString());
+                int units;
+                if (kmRadioButton.isChecked())
+                {
+                    units = Distance.UNITS_KM;
+                }
+                else
+                {
+                    units = Distance.UNITS_MI;
+                }
+                distanceTextView.setText(distance.getDistanceString(units));
                 currentLocationTextView.setText(distance.getCurrentLocationString());
                 handler.postDelayed(this, TEXTVIEW_REFRESH_RATE);
             }
