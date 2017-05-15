@@ -6,7 +6,11 @@
 */
 package com.jmcintyre.singletrackstretch;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
@@ -24,6 +28,7 @@ public class SingletrackStretchActivity extends AppCompatActivity
     *
     */
     private static final int TEXTVIEW_REFRESH_RATE = 1000;
+    private static final int GPS_PERMISSION_REQUEST_CODE = 1;
 
     /* This block defines variables for distance tracking
     *
@@ -49,6 +54,19 @@ public class SingletrackStretchActivity extends AppCompatActivity
         *
         */
         distance = new Distance(this, getApplicationContext());
+
+        /* Request app permissions right away
+        * Nothing in this app functions without GPS permissions so it should be
+        * appropriate to ask on startup
+        *
+        */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (! (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_PERMISSION_REQUEST_CODE );
+            }
+        }
 
         /* Start the distance textView update loop
         *
