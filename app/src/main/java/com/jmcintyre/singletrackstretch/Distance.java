@@ -1,7 +1,6 @@
 /* This file contains code that manages GPS distance calculations
 *
 * Author: Josh McIntyre
-*
 */
 package com.jmcintyre.singletrackstretch;
 
@@ -15,45 +14,34 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
-/* This class defines GPS distance calculation handling functions
-*
-*/
+// This class defines GPS distance calculation handling functions
 public class Distance {
 
-    /* This block defines public constants for distance tracking
-    *
-    */
+    // This block defines public constants for distance tracking
     public static final int UNITS_KM = 0;
     public static final int UNITS_MI = 1;
 
-    /* This block defines private constants for distance tracking
-    *
-    */
+    // This block defines private constants for distance tracking
     private static final long MIN_TIME_CHANGE_MS = 5000;
     private static final long MIN_DISTANCE_CHANGE_M = 0;
     private static final String DISTANCE_STRING_UNITS_KM = " km";
     private static final String DISTANCE_STRING_UNITS_MI = " mi";
     private static final float KM_TO_MI = 0.621371f;
 
-    /* This block defines variables for distance tracking
-    *
-    */
+    // This block defines variables for distance tracking
     private Activity distanceActivity;
     private Context context;
     private LocationManager locationManager;
     private float distanceKm;
     private Location lastLocation;
 
-    /* This block creates a location listener to track distanceKm
-    *
-    */
+    // This block creates a location listener to track distanceKm
     private LocationListener locationListener = new LocationListener()
     {
         public void onLocationChanged(Location location)
         {
             /* Update the distance
             * Distance to returns meters, so convert to km
-            *
             */
             try
             {
@@ -63,9 +51,7 @@ public class Distance {
             }
             catch (NullPointerException e)
             {
-                /* If lastLocation isn't yet set, try again to retrieve the last known location
-                *
-                */
+                // If lastLocation isn't yet set, try again to retrieve the last known location
                 if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
                     lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -79,9 +65,7 @@ public class Distance {
 
     };
 
-    /* This constructor initializes distance tracking
-    *
-    */
+    // This constructor initializes distance tracking
     Distance(Activity distanceActivity, Context context)
     {
         this.distanceActivity = distanceActivity;
@@ -92,9 +76,7 @@ public class Distance {
         this.distanceKm = 0.0f;
     }
 
-    /* This function starts GPS tracking
-    *
-    */
+    // This function starts GPS tracking
     public void startTracking()
     {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
@@ -105,9 +87,7 @@ public class Distance {
         }
     }
 
-    /* This function stops GPS tracking
-    *
-    */
+    // This function stops GPS tracking
     public void stopTracking()
     {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
@@ -118,11 +98,7 @@ public class Distance {
         lastLocation = null;
     }
 
-    /* This getter retrieves the current distanceKm traveled formatted as a string
-    *
-    * Return: distanceString
-    *
-    */
+    // This getter retrieves the current distanceKm traveled formatted as a string
     public String getDistanceString(int units)
     {
         if (units == UNITS_KM)
@@ -135,11 +111,7 @@ public class Distance {
         }
     }
 
-    /* This getter retrieves the current distanceKm traveled formatted as a string
-    *
-    * Return: distanceString
-    *
-    */
+    // This getter retrieves the current distanceKm traveled formatted as a string
     public String getCurrentLocationString()
     {
         if (! (lastLocation == null))

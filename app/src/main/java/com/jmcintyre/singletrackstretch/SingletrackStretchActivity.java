@@ -2,7 +2,6 @@
 * This file contain the main entry point for the program
 *
 * Author: Josh McIntyre
-*
 */
 package com.jmcintyre.singletrackstretch;
 
@@ -20,19 +19,14 @@ import android.os.Handler;
 
 /* This class defines the main activity for the program
 * It manages the GUI for distance calculation
-*
 */
 public class SingletrackStretchActivity extends AppCompatActivity
 {
-    /* This block defines constants for the GUI
-    *
-    */
+    // This block defines constants for the GUI
     private static final int TEXTVIEW_REFRESH_RATE = 1000;
     private static final int GPS_PERMISSION_REQUEST_CODE = 1;
 
-    /* This block defines variables for distance tracking
-    *
-    */
+    // This block defines variables for distance tracking
     private Distance distance;
     private Handler handler;
     private TextView distanceTextView;
@@ -42,7 +36,6 @@ public class SingletrackStretchActivity extends AppCompatActivity
 
     /* This function builds the GUI when the app loads
     * It sets the view to the distance activity
-    *
     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,15 +43,12 @@ public class SingletrackStretchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distance);
 
-        /* Initialize the distance tracker
-        *
-        */
+        // Initialize the distance tracker
         distance = new Distance(this, getApplicationContext());
 
         /* Request app permissions right away
         * Nothing in this app functions without GPS permissions so it should be
         * appropriate to ask on startup
-        *
         */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -68,9 +58,7 @@ public class SingletrackStretchActivity extends AppCompatActivity
             }
         }
 
-        /* Start the distance textView update loop
-        *
-        */
+        // Start the distance textView update loop
         handler = new Handler();
         distanceTextView = (TextView) findViewById(R.id.distanceTextView);
         currentLocationTextView = (TextView) findViewById(R.id.currentLocationTextView);
@@ -99,53 +87,35 @@ public class SingletrackStretchActivity extends AppCompatActivity
 
     }
 
-    /* This function starts the distance tracker
-    *
-    */
+    // This function starts the distance tracker
     public void startTracking(View view)
     {
-        /* Start the distance tracking
-        *
-        */
+        // Start the distance tracking
         distance.startTracking();
 
-        /* Inform the user tracking has been started
-        *
-        */
+        // Inform the user tracking has been started
         Toast toast = Toast.makeText(getApplicationContext(), "Tracking started", Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    /* This function stops the distance tracker
-    *
-    */
+    // This function stops the distance tracker
     public void stopTracking(View view)
     {
-        /* Stop the tracking
-        *
-        */
+        // Stop the tracking
         distance.stopTracking();
 
-        /* Inform the user tracking has been stopped
-        *
-        */
+        // Inform the user tracking has been stopped
         Toast toast = Toast.makeText(getApplicationContext(), "Tracking stopped", Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    /* This function resets the distance tracker
-    *
-    */
+    // This function resets the distance tracker
     public void resetTracking(View view)
     {
-        /* Reinitialize the distance tracker
-        *
-        */
+        // Reinitialize the distance tracker
         distance = new Distance(this, getApplicationContext());
 
-        /* Inform the user the tracker has been reset
-        *
-        */
+        // Inform the user the tracker has been reset
         Toast toast = Toast.makeText(getApplicationContext(), "Tracking reset", Toast.LENGTH_SHORT);
         toast.show();
     }
