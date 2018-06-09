@@ -6,6 +6,8 @@
 package com.jmcintyre.singletrackstretch;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -98,6 +100,36 @@ public class SingletrackStretchActivity extends AppCompatActivity
         toast.show();
     }
 
+    /* This function overrides the normal back button functionality so that
+    * it prompts the user to exit
+    */
+    @Override
+    public void onBackPressed()
+    {
+        // Create the exit prompt using the AlertDialog Builder
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        dialogBuilder.setTitle("Exit?");
+        dialogBuilder.setMessage("Are you sure you want to exit this tracking session? Your distance data will be lost.");
+
+        // Set the yes button handler
+        dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                finish();
+            }
+        });
+
+        // Don't do anything if the user says no
+        dialogBuilder.setNegativeButton("No", null);
+
+        // Show the dialog since the back button was pressed
+        dialogBuilder.show();
+
+    }
+
     // This function stops the distance tracker
     public void stopTracking(View view)
     {
@@ -119,6 +151,4 @@ public class SingletrackStretchActivity extends AppCompatActivity
         Toast toast = Toast.makeText(getApplicationContext(), "Tracking reset", Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
 }
