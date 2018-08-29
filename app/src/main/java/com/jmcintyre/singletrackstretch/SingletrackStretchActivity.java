@@ -45,12 +45,14 @@ public class SingletrackStretchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distance);
 
-        // Initialize the distance tracker
-        distance = new Distance(this, getApplicationContext());
+        // Fully initialize the distance tracker
+        SingletrackStretchApplication ssApp = (SingletrackStretchApplication) getApplicationContext();
+        distance = ssApp.getDistanceTracker();
+        distance.initTracking(this);
 
         /* Request app permissions right away
         * Nothing in this app functions without GPS permissions so it should be
-        * appropriate to ask on startup
+        * appropriate to ask on activity startup
         */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -145,7 +147,7 @@ public class SingletrackStretchActivity extends AppCompatActivity
     public void resetTracking(View view)
     {
         // Reinitialize the distance tracker
-        distance = new Distance(this, getApplicationContext());
+        distance.resetTracking();
 
         // Inform the user the tracker has been reset
         Toast toast = Toast.makeText(getApplicationContext(), "Tracking reset", Toast.LENGTH_SHORT);

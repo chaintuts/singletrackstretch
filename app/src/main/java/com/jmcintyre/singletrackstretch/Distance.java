@@ -30,7 +30,6 @@ public class Distance {
 
     // This block defines variables for distance tracking
     private Activity distanceActivity;
-    private Context context;
     private LocationManager locationManager;
     private float distanceKm;
     private Location lastLocation;
@@ -52,9 +51,13 @@ public class Distance {
             catch (NullPointerException e)
             {
                 // If lastLocation isn't yet set, try again to retrieve the last known location
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                try
                 {
                     lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+                catch (SecurityException se)
+                {
+
                 }
             }
         }
@@ -65,37 +68,61 @@ public class Distance {
 
     };
 
-    // This constructor initializes distance tracking
-    Distance(Activity distanceActivity, Context context)
+    /* The constructor initializes the distance to 0
+    * This object is a singleton that will only be created at app startup
+    * This prevents accidental resets of the distance tracked when the Activity's
+    * onCreate method is re-fired for various reasons
+    */
+    Distance()
+    {
+        this.distanceKm = 0.0f;
+    }
+
+    /* This function initializes distance tracking
+    * It must be called from within an activity
+    */
+    public void initTracking(Activity distanceActivity)
     {
         this.distanceActivity = distanceActivity;
-        this.context = context;
-
         locationManager = (LocationManager) distanceActivity.getSystemService(Context.LOCATION_SERVICE);
-
-        this.distanceKm = 0.0f;
     }
 
     // This function starts GPS tracking
     public void startTracking()
     {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        try
         {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_CHANGE_MS, MIN_DISTANCE_CHANGE_M, locationListener);
 
             lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        catch (SecurityException e)
+        {
+
         }
     }
 
     // This function stops GPS tracking
     public void stopTracking()
     {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        try
         {
             locationManager.removeUpdates(locationListener);
         }
+        catch (SecurityException e)
+        {
+
+        }
 
         lastLocation = null;
+    }
+
+    // This function resets GPS tracking without reinitializing the whole distance object
+    public void resetTracking()
+    {
+        distanceKm = 0.0f;
+        stopTracking();
+        startTracking();
     }
 
     // This getter retrieves the current distanceKm traveled formatted as a string
