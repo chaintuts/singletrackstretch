@@ -120,7 +120,12 @@ public class SingletrackStretchActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                /* Finish the activity and then completely kill the application using System.exit(0)
+                * This will prevent the application from running in the background and
+                * continuing to track or appearing to start where the user left off
+                */
                 finish();
+                System.exit(0);
             }
         });
 
