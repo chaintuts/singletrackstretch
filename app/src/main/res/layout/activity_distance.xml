@@ -24,8 +24,7 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/unitsRadioGroup">
+        android:layout_height="match_parent">
 
         <RadioButton
             android:text="kilometers"
@@ -50,7 +49,6 @@
     <Button
         android:text="Start"
         android:layout_height="wrap_content"
-        android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:fontFamily="monospace"
         android:textStyle="bold"
@@ -60,7 +58,6 @@
     <Button
         android:text="Stop"
         android:layout_height="wrap_content"
-        android:id="@+id/stopButton"
         android:layout_width="match_parent"
         android:fontFamily="monospace"
         android:textStyle="bold"
@@ -70,7 +67,6 @@
     <Button
         android:text="Reset"
         android:layout_height="wrap_content"
-        android:id="@+id/resetButton"
         android:layout_width="match_parent"
         android:fontFamily="monospace"
         android:textStyle="bold"
